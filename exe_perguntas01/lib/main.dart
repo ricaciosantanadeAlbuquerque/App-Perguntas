@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'components/Questionario.dart';
+import 'components/resultado.dart';
 
 void main() => runApp(const PerguntaApp());
 
@@ -12,6 +13,7 @@ class PerguntaApp extends StatefulWidget {
 
 class PerguntaAppState extends State<PerguntaApp> {
   int _index = 0;
+  int _valorTotla = 0;
 
   final List<Map<String, Object>> listPerguntas = const [
     {
@@ -37,15 +39,16 @@ class PerguntaAppState extends State<PerguntaApp> {
       'resposta': [
         {'texto': 'Leao', 'nota': 10},
         {'texto': 'Maria', 'nota': 5},
-        {'texto': 'Preto', 'nota': 10},
+        {'texto': 'Preto', 'nota': 3},
         {'texto': 'João', 'nota': 1}
       ]
     }
   ];
 
-  void responder() {
+  void responder(int valor) {
     setState(() {
       _index++;
+      _valorTotla += valor;
     });
   }
 
@@ -53,16 +56,23 @@ class PerguntaAppState extends State<PerguntaApp> {
     return _index < listPerguntas.length;
   }
 
+  void resetPerguntas() {
+    setState(() {
+      _index = 0;
+      _valorTotla = 0;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: const Center(child: Text('Perguntas App'))),
-        body: temPergunta ? Questionario(index: _index, listPerguntas: listPerguntas, onChanged: responder) :
-        const Center(
-          child: Text('FIM!!')
-        ),
-      ),
+          appBar: AppBar(
+            title: const Center(
+              child: Text('Perguntas App'),
+            ),
+          ),
+          body: temPergunta ? Questionario(index: _index, listPerguntas: listPerguntas, onChanged: responder) : Resultado(valor: _valorTotla, onReset: resetPerguntas)),
     );
   }
 }

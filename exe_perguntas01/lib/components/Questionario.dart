@@ -6,8 +6,8 @@ import 'resposta.dart';
 class Questionario extends StatelessWidget {
   final int index;
   final List<Map<String, Object>> listPerguntas;
-  final void Function() onChanged;
-  
+  final void Function(int) onChanged;
+
   const Questionario({super.key, required this.index, required this.listPerguntas, required this.onChanged});
 
   @override
@@ -17,7 +17,7 @@ class Questionario extends StatelessWidget {
       children: [
         Questao(texto: listPerguntas[index]['texto'] as String),
         ...lista.map((map) {
-          return Resposta(texto: map['texto'] as String, onSelected: onChanged);
+          return Resposta(texto: map['texto'] as String, onSelected: () => onChanged(map['nota'] as int));
         }).toList()
       ],
     );
