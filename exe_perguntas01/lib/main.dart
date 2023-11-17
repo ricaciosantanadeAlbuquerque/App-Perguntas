@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'components/Questionario.dart';
 
 void main() => runApp(const PerguntaApp());
 
@@ -43,28 +44,23 @@ class PerguntaAppState extends State<PerguntaApp> {
   ];
 
   void responder() {
-     setState(() {
-         _index++;
-      print(_index);
-     });
+    setState(() {
+      _index++;
+    });
+  }
+
+  bool get temPergunta {
+    return _index < listPerguntas.length;
   }
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, Object>> lista = listPerguntas[_index]['resposta'] as List<Map<String, Object>>;
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(),
-        body: Column(
-          children: [
-            Text(listPerguntas[_index]['texto'] as String),
-            ...lista.map((map) {
-              return ElevatedButton(
-                onPressed: responder,
-                child: Text(map['texto'] as String),
-              );
-            }).toList()
-          ],
+        appBar: AppBar(title: const Center(child: Text('Perguntas App'))),
+        body: temPergunta ? Questionario(index: _index, listPerguntas: listPerguntas, onChanged: responder) :
+        const Center(
+          child: Text('FIM!!')
         ),
       ),
     );
