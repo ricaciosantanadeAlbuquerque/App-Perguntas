@@ -58,10 +58,10 @@ class PerguntaAppState extends State<PerguntaApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: const Center(child: Text('Perguntas App'))),
-        body: temPergunta ? Questionario(index: _index, listPerguntas: listPerguntas, onChanged: responder) :
-        const Center(
-          child: Text('FIM!!')
-        ),
+        body: temPergunta ? 
+        Questionario(index: _index, listPerguntas: listPerguntas, onChanged: responder) 
+        :
+        
       ),
     );
   }
