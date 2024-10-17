@@ -69,6 +69,7 @@ class PerguntaAppState extends State<PerguntaApp> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
           appBar: AppBar(
+            backgroundColor: Colors.blue,
             title: const Center(
               child: Text('Perguntas App'),
             ),
